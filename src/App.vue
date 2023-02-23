@@ -75,14 +75,17 @@ export default {
   unmounted() {},
   beforeUnmount() {},
   methods: {
-    init() {
+    async init() {
       this.loaded = false;
-      fetch("https://reqres.in/api/users?per_page=5")
-        .then((response) => response.json())
-        .then(({ data }) => {
-          this.list = data;
-          this.loaded = true;
-        });
+      const data = await fetch("https://reqres.in/api/users?per_page=5").then(
+        (response) => response.json()
+      );
+      // .then(({ data }) => {
+      //   this.list = data;
+      //   this.loaded = true;
+      // });
+
+      console.log(data);
     },
     click() {
       this.message = "hi";
