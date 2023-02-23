@@ -1,7 +1,7 @@
 <template>
   <div class="box">bbbb : {{ message }}</div>
 
-  <button @click="onClick">emit</button>
+  <button @click="onClick" v-bind="$attrs">emit</button>
 </template>
 
 <script>

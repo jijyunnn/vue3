@@ -21,7 +21,18 @@ export default {
 </script>
 <template>
   <main>
-    <the-test :message="message" @hi="onHi"></the-test>
+    <the-test
+      :message="message"
+      @hi="onHi"
+      class="aaaaa"
+      data-test="test"
+    ></the-test>
+    <the-test
+      :message="message"
+      @hi="onHi"
+      class="bbbbb"
+      data-test="test"
+    ></the-test>
     aaaa : {{ message }}
     <hr />
     <div class="box">cccc</div>
