@@ -28,9 +28,19 @@ const router = createRouter({
       component: () => import("@/views/BlogList.vue"),
     },
     {
-      path: "/blog/detail/:id",
+      path: "/blog/detail/:postId",
       name: "detail",
       component: () => import("@/views/BlogDetail.vue"),
+    },
+    {
+      path: "/apiTest",
+      name: "apiTest",
+      component: () => import("@/views/ApiListView.vue"),
+    },
+    {
+      path: "/axios",
+      name: "axios",
+      component: () => import("@/views/AxiosView.vue"),
     },
   ],
 });

@@ -30,6 +30,7 @@
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/blog">Blog</RouterLink>
+        <router-link :to="{ name: 'apiTest' }">API LIST</router-link>
       </nav>
     </div>
   </header>

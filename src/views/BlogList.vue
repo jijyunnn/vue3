@@ -6,7 +6,7 @@
         :to="{
           name: 'detail',
           params: {
-            id: item.id,
+            postId: item.id,
           },
         }"
       >
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       posts: [],
+      // totalList: '',
     };
   },
   mounted() {
@@ -32,7 +33,7 @@ export default {
     },
     async getPost() {
       const data = await fetch(
-        "https://theme.sunflower.kr/wp-json/wp/v2/posts?per_page=5"
+        "https://theme.sunflower.kr/wp-json/wp/v2/posts?per_page=10"
       ).then((r) => r.json());
 
       console.log(data);
