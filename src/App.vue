@@ -1,16 +1,6 @@
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       {{ message }}
       <hr />
       {{ a }}
@@ -31,6 +21,8 @@
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/blog">Blog</RouterLink>
         <router-link :to="{ name: 'apiTest' }">API LIST</router-link>
+        <router-link :to="{ name: 'axios' }">axios</router-link>
+        <router-link :to="{ name: 'board' }">게시판</router-link>
       </nav>
     </div>
   </header>
@@ -38,11 +30,11 @@
   <RouterView />
 </template>
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
   data() {
     return {
@@ -109,7 +101,7 @@ header {
 
 nav {
   width: 100%;
-  font-size: 12px;
+  font-size: 16px;
   text-align: center;
   margin-top: 2rem;
 }
@@ -147,6 +139,7 @@ nav a:first-of-type {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+    margin-top: 2rem;
   }
 
   nav {

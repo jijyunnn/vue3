@@ -42,6 +42,25 @@ const router = createRouter({
       name: "axios",
       component: () => import("@/views/AxiosView.vue"),
     },
+    {
+      path: "/board",
+      name: "board",
+      component: () => import("@/views/blog/BlogIndex.vue"),
+      redirect: { name: "blogList" },
+      children: [
+        {
+          // parameter page로 설정 뒤에 아무 숫자도 안붙었을 경우 처리를 위해 `?` 작성
+          path: "list/:page?",
+          name: "blogList",
+          component: () => import("@/views/blog/BlogList.vue"),
+        },
+        {
+          path: "detail/",
+          name: "blogDetail",
+          component: () => import("@/views/blog/BlogDetail.vue"),
+        },
+      ],
+    },
   ],
 });
 

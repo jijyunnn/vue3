@@ -6,42 +6,40 @@ const list = ref([]);
 // const itemTotal = ref(0);
 
 onMounted(async () => {
-  const { data } = await axios("https://reqres.in/api/users?per_page=6", {
+  // await axios({
+  //   method: "get",
+  //   url: "https://reqres.in/api/users",
+  //   params: {
+  //     per_page: 4,
+  //     page: 1,
+  //   },
+  // }).then((res) => {
+  //   console.log(res.data.total);
+  //   console.log(res.data.data);
+  //   list.value = res.data.data;
+  //   itemTotal.value = res.data.total;
+  // });
+  const { data } = await axios.get("https://reqres.in/api/users", {
     params: {
       per_page: 4,
       page: 1,
     },
   });
+  // console.log(`axios: ${data}`);
 
+  // const { data } = await fetch(
+  //   "https://reqres.in/api/users?page=1&per_page=4"
+  // ).then((res) => res.json());
+  // console.log(`fetch ${data}`);
+  // console.log(totalData);
   list.value = data.data;
+  // itemTotal.value = totalData;
 });
 </script>
-<!--<script>-->
-<!--export default {-->
-<!--  data() {-->
-<!--    return {-->
-<!--      list: [],-->
-<!--      itemTotal: 0,-->
-<!--    };-->
-<!--  },-->
-<!--  mounted() {-->
-<!--    this.getList();-->
-<!--  },-->
-<!--  methods: {-->
-<!--    async getList() {-->
-<!--      const { data: listItem, ...itemTotal } = await fetch(-->
-<!--        "https://reqres.in/api/users?per_page=6"-->
-<!--      ).then((res) => res.json());-->
-<!--      this.list = listItem;-->
-<!--      this.itemTotal = itemTotal;-->
-<!--    },-->
-<!--  },-->
-<!--};-->
-<!--</script>-->
 
 <template>
   <div>
-    <!--    <h4>총 갯수 : {{ itemTotal.total }}</h4>-->
+    <!--    <h4>총 갯수 : {{ itemTotal }}</h4>-->
     <ul>
       <li v-for="(item, index) in list" :key="index">
         <img :src="item.avatar" alt="" />
