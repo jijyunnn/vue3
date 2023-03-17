@@ -45,19 +45,19 @@ const router = createRouter({
     {
       path: "/board",
       name: "board",
-      component: () => import("@/views/blog/BlogIndex.vue"),
+      component: () => import("@/views/board/BlogIndex.vue"),
       redirect: { name: "blogList" },
       children: [
         {
           // parameter page로 설정 뒤에 아무 숫자도 안붙었을 경우 처리를 위해 `?` 작성
           path: "list/:page?",
           name: "blogList",
-          component: () => import("@/views/blog/BlogList.vue"),
+          component: () => import("@/views/board/BlogList.vue"),
         },
         {
-          path: "detail/",
+          path: "detail/:detailId?",
           name: "blogDetail",
-          component: () => import("@/views/blog/BlogDetail.vue"),
+          component: () => import("@/views/board/BlogDetail.vue"),
         },
       ],
     },

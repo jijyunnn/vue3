@@ -17,8 +17,8 @@ const getPostList = async () => {
       page: listPage.value,
     },
   });
-  console.log(data);
-  console.log(headers["x-wp-totalpages"]);
+  // console.log(data);
+  // console.log(headers["x-wp-totalpages"]);
   list.value = data;
   pagingTotal.value = headers["x-wp-totalpages"];
 };
@@ -38,22 +38,30 @@ onMounted(() => {
 
 <template>
   <div>
-    <h4>BlogList페이지</h4>
+    <h4>BlogList 페이지</h4>
     <ul>
       <li v-for="post in list" :key="post.id">
-        <router-link to="/board">{{ post.title.rendered }}</router-link>
+        <router-link
+          :to="{
+            name: 'blogDetail',
+            params: {
+              detailId: post.id,
+            },
+          }"
+          >{{ post.title.rendered }}</router-link
+        >
       </li>
     </ul>
     <ul class="paging">
-      <li v-for="key in Number(pagingTotal)" :key="key">
+      <li v-for="item in Number(pagingTotal)" :key="item">
         <router-link
           :to="{
             name: 'blogList',
             params: {
-              page: key,
+              page: item,
             },
           }"
-          >{{ key }}</router-link
+          >{{ item }}</router-link
         >
       </li>
     </ul>

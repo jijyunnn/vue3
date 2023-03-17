@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div>
-    blogIndex Page입니다.
+    blogIndex Page 입니다.
     <router-view></router-view>
   </div>
 </template>
