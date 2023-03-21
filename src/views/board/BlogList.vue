@@ -11,7 +11,7 @@ const pagingTotal = ref(0);
 const getPostList = async () => {
   const { data, headers } = await axios({
     method: "get",
-    url: "https://theme.sunflower.kr/wp-json/wp/v2/posts",
+    url: "/api/posts",
     params: {
       per_page: 5,
       page: listPage.value,
@@ -38,9 +38,10 @@ onMounted(() => {
 
 <template>
   <div>
-    <h4>BlogList 페이지</h4>
+    <h4>BlogList Page 입니다.</h4>
     <ul>
       <li v-for="post in list" :key="post.id">
+        <!-- a, b -->
         <router-link
           :to="{
             name: 'blogDetail',
@@ -70,6 +71,9 @@ onMounted(() => {
 <style scoped>
 div {
   outline: 1px solid #f00;
+}
+h4 {
+  color: #ff0000;
 }
 .paging {
   display: flex;

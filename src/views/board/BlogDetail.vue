@@ -2,24 +2,26 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useRoute } from "vue-router";
+import BlogComment from "@/views/board/BlogComment.vue";
 
 const route = useRoute();
-const detail = ref({
-  title: "",
-  content: "",
-});
+
 const detailId = ref(route.params.detailId);
-console.log(route.params);
+const detail = ref({});
+//rendered error 처리를 위한 데이터 불러온지 체크하는 변수 선언
+const detailLoaded = ref(false);
+
 const getPostDetail = async () => {
+  detailLoaded.value = false;
   const { data } = await axios({
     method: "get",
-    url: `https://theme.sunflower.kr/wp-json/wp/v2/posts/${detailId.value}`,
+    url: `/api/posts/${detailId.value}`,
   });
-  console.log(route);
-  console.log(data);
-  // console.log(detailId.value);
+
   detail.value = data;
+  detailLoaded.value = true;
 };
+
 onMounted(() => {
   getPostDetail();
 });
@@ -27,23 +29,35 @@ onMounted(() => {
 
 <template>
   <div class="blogDetail">
-    blogDetail Page 입니다.
-    <div class="postContent">
+    <h4>blogDetail Page 입니다.</h4>
+    <div class="postContent" v-if="detailLoaded">
       <h2>{{ detail.title.rendered }}</h2>
-      <div v-html="detail.content.rendered"></div>
+      <hr />
+      <div class="post" v-html="detail.content.rendered"></div>
+      <hr />
+      <BlogComment></BlogComment>
     </div>
   </div>
 </template>
 
 <style scoped>
+.cmt {
+  margin: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
 .blogDetail {
   width: 100%;
-  height: 400px;
   padding: 20px;
 }
+h4 {
+  color: green;
+}
 .postContent {
-  outline: 1px solid #000;
+  outline: 1px solid green;
   width: 600px;
-  height: 300px;
+}
+.post {
+  height: 200px;
 }
 </style>
