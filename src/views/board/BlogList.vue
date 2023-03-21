@@ -1,39 +1,39 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import axios from "axios";
-import { useRoute } from "vue-router";
+import { ref, onMounted, watch } from 'vue'
+import axios from 'axios'
+import { useRoute } from 'vue-router'
 
-const route = useRoute();
-const list = ref();
-const listPage = ref(route.params.page || 1);
-const pagingTotal = ref(0);
+const route = useRoute()
+const list = ref()
+const listPage = ref(route.params.page || 1)
+const pagingTotal = ref(0)
 
 const getPostList = async () => {
   const { data, headers } = await axios({
-    method: "get",
-    url: "/api/posts",
+    method: 'get',
+    url: '/api/posts',
     params: {
       per_page: 5,
-      page: listPage.value,
-    },
-  });
+      page: listPage.value
+    }
+  })
   // console.log(data);
   // console.log(headers["x-wp-totalpages"]);
-  list.value = data;
-  pagingTotal.value = headers["x-wp-totalpages"];
-};
+  list.value = data
+  pagingTotal.value = headers['x-wp-totalpages']
+}
 
 watch(
   () => route.params.page,
   (page) => {
-    listPage.value = page;
-    getPostList();
+    listPage.value = page
+    getPostList()
   }
-);
+)
 
 onMounted(() => {
-  getPostList();
-});
+  getPostList()
+})
 </script>
 
 <template>
@@ -46,8 +46,8 @@ onMounted(() => {
           :to="{
             name: 'blogDetail',
             params: {
-              detailId: post.id,
-            },
+              detailId: post.id
+            }
           }"
           >{{ post.title.rendered }}</router-link
         >
@@ -59,8 +59,8 @@ onMounted(() => {
           :to="{
             name: 'blogList',
             params: {
-              page: item,
-            },
+              page: item
+            }
           }"
           >{{ item }}</router-link
         >

@@ -10,20 +10,20 @@ export default {
   props: {
     message: {
       type: String,
-      default: "-----",
-    },
+      default: '-----'
+    }
   },
   methods: {
     onClick() {
-      console.log("-------");
+      console.log('-------')
 
-      this.$emit("hi", {
-        a: "aaaa",
-        b: "bbbb",
-      });
-    },
-  },
-};
+      this.$emit('hi', {
+        a: 'aaaa',
+        b: 'bbbb'
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -1,89 +1,94 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import { useRoute } from "vue-router";
+// props 받아오기 위해 defineProps import
+import { ref, onMounted, defineProps, watch } from 'vue'
+// import axios from "axios";
+import comment from './BlogComment.vue'
 
-const route = useRoute();
+//defineProps를 사용하여 props 선언
+const props = defineProps({
+  detailId: {
+    type: Number,
+    default: 0
+  },
+  //댓글 불러오기
+  commentData: {
+    type: Array,
+    default: () => []
+  },
+  //대댓글 Depth만큼 불러오기 위한 부모 ID값 받아오기
+  parentId: {
+    type: Number,
+    default: 0
+  }
+})
 
-const detailId = ref(route.params.detailId);
+//props에 선언한것으로 detailId 재정의
+// const detailId = ref(props.detailId);
 
-const comments = ref([]);
+const comments = ref([])
 
-const getComments = async () => {
-  const { data } = await axios({
-    method: "get",
-    url: `/api/comments?order=asc&orderby=date`,
-    params: {
-      post: detailId.value,
-      per_page: 100,
-    },
-  });
-  comments.value = data;
-};
+// const emit = defineEmits(["cmtClick"]);
+
+// const getComments = async () => {
+//   const { data } = await axios({
+//     method: "get",
+//     url: `/api/comments`,
+//     params: {
+//       // props로 받아온 값으로 데이터 불러옴
+//       post: detailId.value,
+//       per_page: 100,
+//       order: "asc",
+//     },
+//   });
+//   comments.value = data;
+// };
+
+// const onClickEvent = (id, content) => {
+//   console.log("-----onClickEvent-----");
+//
+//   emit("cmtClick", {
+//     id: id,
+//     content: content,
+//   });
+// };
+watch(
+  () => props.commentData,
+  (cmt) => {
+    console.log(3333333333, cmt)
+    comments.value = cmt
+  }
+)
 
 onMounted(() => {
-  getComments();
-});
+  comments.value = props.commentData
+
+  console.log('2222', props.commentData)
+})
 </script>
 <template>
-  <div class="blogComments">
-    <!--    <div-->
-    <!--      class="cmt"-->
-    <!--      v-for="item in comments.filter((value) => value.parent === 0)"-->
-    <!--      :key="item.id"-->
-    <!--    >-->
-    <!--      댓글 아이디{{ item.id }}-->
-    <!--      <div class="cmt" v-html="item.content.rendered"></div>-->
-    <!--      <div-->
-    <!--        class="cmt"-->
-    <!--        v-for="child in comments.filter((value) => value.parent === item.id)"-->
-    <!--        :key="child.id"-->
-    <!--      >-->
-    <!--        부모: {{ child.parent }} 인것 {{ child.content }}-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <div class="cmt" v-for="item in comments" :key="item.id">
-      {{ item.id }}
-      {{ item.content?.rendered }}
-      <div
-        class="cmt"
-        v-for="child in comments.filter((value) => value.parent === item.id)"
-        :key="child.id"
-      >
-        {{ item.id }}
-        {{ child.id }}
-        {{ child.content?.rendered }}
-        <div
-          class="cmt"
-          v-for="secChild in comments.filter(
-            (value) => value.parent === child.id
-          )"
-          소
-          :key="secChild.id"
-        >
-          {{ child.id }}
-          {{ secChild.content?.rendered }}
-          <div
-            class="cmt"
-            v-for="thrChild in comments.filter(
-              (value) => value.parent === secChild.id
-            )"
-          >
-            {{ secChild.id }}
-            {{ thrChild.content?.rendered }}
-          </div>
-        </div>
-      </div>
+  <div>
+    <!--    <button :detailId="detailId">Props</button>-->
+
+    <div
+      style="margin: 10px; border: 1px solid #ccc; padding: 10px"
+      v-for="cmt in comments.filter((value) => value.parent === props.parentId)"
+      :key="cmt.id"
+    >
+      나 : {{ cmt.id }}
+      <div v-html="cmt.content.rendered"></div>
+      <!--      <button type="button" @click="onClickEvent(cmt.id, cmt.content)">-->
+      <!--        Emit-->
+      <!--      </button>-->
+      <!--      <div v-html="cmt.content.rendered"></div>-->
+      <!--      <div-->
+      <!--        v-for="child in comments.filter((value) => value.parent === cmt.id)"-->
+      <!--        :key="child.id + 'child'"-->
+      <!--        style="margin: 10px; border: 1px solid #ccc; padding: 10px"-->
+      <!--      >-->
+      <!--        부모 : {{ child.parent }}-->
+      <!--        <div v-html="child.content.rendered"></div>-->
+      <!--      </div>-->
+      <comment :detail-id="props.detailId" :comment-data="comments" :parent-id="cmt.id"></comment>
     </div>
   </div>
 </template>
-<style scoped>
-.cmt {
-  margin: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-h4 {
-  color: green;
-}
-</style>

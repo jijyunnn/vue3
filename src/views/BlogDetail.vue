@@ -5,41 +5,39 @@ export default {
   data() {
     return {
       detail: {
-        title: "",
-        content: "",
-        date: "",
+        title: '',
+        content: '',
+        date: ''
       },
-      postId: 0,
-    };
+      postId: 0
+    }
   },
   // created() {
   //   console.log(this.$route.params.postId);
   // },
   watch: {
-    content() {},
+    content() {}
   },
   // props: [
   //   "postId"
   // ],
   mounted() {
-    console.log(this.$route.params.postId);
-    this.postId = this.$route.params.postId;
-    this.init();
+    console.log(this.$route.params.postId)
+    this.postId = this.$route.params.postId
+    this.init()
   },
   methods: {
     init() {
-      this.getDetail();
+      this.getDetail()
     },
     async getDetail() {
-      const data = await fetch(
-        `https://theme.sunflower.kr/wp-json/wp/v2/posts/${this.postId}/`
-      )
+      const data = await fetch(`https://theme.sunflower.kr/wp-json/wp/v2/posts/${this.postId}/`)
         .then((r) => r.json())
-        .catch((err) => console.log(err.message));
-      this.detail = data;
-    },
-  },
-};
+        .catch((err) => console.log(err.message))
+      this.detail = data
+    }
+  }
+}
 </script>
 <template>
   <main>

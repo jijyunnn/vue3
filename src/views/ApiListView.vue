@@ -1,18 +1,18 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue'
 
-const list = ref([]);
-const itemTotal = ref(0);
+const list = ref([])
+const itemTotal = ref(0)
 
 onMounted(async () => {
   const { data: listItem, ...totalData } = await fetch(
-    "https://reqres.in/api/users?per_page=6"
-  ).then((res) => res.json());
+    'https://reqres.in/api/users?per_page=6'
+  ).then((res) => res.json())
 
   // list.value = data; data 이름 재정의
-  list.value = listItem;
-  itemTotal.value = totalData;
-});
+  list.value = listItem
+  itemTotal.value = totalData
+})
 </script>
 <!--<script>-->
 <!--export default {-->

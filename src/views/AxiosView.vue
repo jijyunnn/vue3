@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
-const list = ref([]);
+const list = ref([])
 // const itemTotal = ref(0);
 
 onMounted(async () => {
@@ -19,12 +19,12 @@ onMounted(async () => {
   //   list.value = res.data.data;
   //   itemTotal.value = res.data.total;
   // });
-  const { data } = await axios.get("https://reqres.in/api/users", {
+  const { data } = await axios.get('https://reqres.in/api/users', {
     params: {
       per_page: 4,
-      page: 1,
-    },
-  });
+      page: 1
+    }
+  })
   // console.log(`axios: ${data}`);
 
   // const { data } = await fetch(
@@ -32,9 +32,9 @@ onMounted(async () => {
   // ).then((res) => res.json());
   // console.log(`fetch ${data}`);
   // console.log(totalData);
-  list.value = data.data;
+  list.value = data.data
   // itemTotal.value = totalData;
-});
+})
 </script>
 
 <template>

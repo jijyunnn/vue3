@@ -6,8 +6,8 @@
         :to="{
           name: 'detail',
           params: {
-            postId: item.id,
-          },
+            postId: item.id
+          }
         }"
       >
         {{ item.title.rendered }}
@@ -20,25 +20,25 @@
 export default {
   data() {
     return {
-      posts: [],
+      posts: []
       // totalList: '',
-    };
+    }
   },
   mounted() {
-    this.init();
+    this.init()
   },
   methods: {
     init() {
-      this.getPost();
+      this.getPost()
     },
     async getPost() {
-      const data = await fetch(
-        "https://theme.sunflower.kr/wp-json/wp/v2/posts?per_page=10"
-      ).then((r) => r.json());
+      const data = await fetch('https://theme.sunflower.kr/wp-json/wp/v2/posts?per_page=10').then(
+        (r) => r.json()
+      )
 
-      console.log(data);
-      this.posts = data;
-    },
-  },
-};
+      console.log(data)
+      this.posts = data
+    }
+  }
+}
 </script>
