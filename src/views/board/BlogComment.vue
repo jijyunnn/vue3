@@ -22,7 +22,7 @@ const comments = ref([]);
 watch(
   () => props.commentData,
   (cmt) => {
-    console.log(3333333333, cmt);
+    // console.log(3333333333, cmt);
     comments.value = cmt;
   }
 );

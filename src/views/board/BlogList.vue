@@ -1,39 +1,41 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import axios from 'axios'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, watch } from "vue";
+import axios from "axios";
+import { useRoute } from "vue-router";
+// import commentWrap from "@/views/board/BlogCommentWrap.vue";
+import PageNation from "@/components/board/ListPagination.vue";
 
-const route = useRoute()
-const list = ref()
-const listPage = ref(route.params.page || 1)
-const pagingTotal = ref(0)
+const route = useRoute();
+const list = ref();
+const listPage = ref(route.params.page || 1);
+const pagingTotal = ref(0);
 
 const getPostList = async () => {
   const { data, headers } = await axios({
-    method: 'get',
-    url: '/api/posts',
+    method: "get",
+    url: "/api/posts",
     params: {
-      per_page: 5,
-      page: listPage.value
-    }
-  })
+      per_page: 3,
+      page: listPage.value,
+    },
+  });
   // console.log(data);
   // console.log(headers["x-wp-totalpages"]);
-  list.value = data
-  pagingTotal.value = headers['x-wp-totalpages']
-}
+  list.value = data;
+  pagingTotal.value = headers["x-wp-totalpages"];
+};
 
 watch(
   () => route.params.page,
   (page) => {
-    listPage.value = page
-    getPostList()
+    listPage.value = page;
+    getPostList();
   }
-)
+);
 
 onMounted(() => {
-  getPostList()
-})
+  getPostList();
+});
 </script>
 
 <template>
@@ -46,26 +48,18 @@ onMounted(() => {
           :to="{
             name: 'blogDetail',
             params: {
-              detailId: post.id
-            }
+              detailId: post.id,
+            },
           }"
           >{{ post.title.rendered }}</router-link
         >
+        <!--        <comment-wrap :detail-id="post.id"></comment-wrap>-->
       </li>
     </ul>
-    <ul class="paging">
-      <li v-for="item in Number(pagingTotal)" :key="item">
-        <router-link
-          :to="{
-            name: 'blogList',
-            params: {
-              page: item
-            }
-          }"
-          >{{ item }}</router-link
-        >
-      </li>
-    </ul>
+    <PageNation
+      :total="Number(pagingTotal)"
+      :page="Number(listPage)"
+    ></PageNation>
   </div>
 </template>
 <style scoped>
@@ -74,15 +68,5 @@ div {
 }
 h4 {
   color: #ff0000;
-}
-.paging {
-  display: flex;
-  list-style: none;
-  margin-top: 20px;
-}
-.paging li {
-  outline: 1px solid green;
-  padding: 10px;
-  margin-left: 10px;
 }
 </style>
