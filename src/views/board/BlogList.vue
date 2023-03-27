@@ -1,41 +1,41 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import axios from "axios";
-import { useRoute } from "vue-router";
+import { ref, onMounted, watch } from 'vue'
+import axios from 'axios'
+import { useRoute } from 'vue-router'
 // import commentWrap from "@/views/board/BlogCommentWrap.vue";
-import PageNation from "@/components/board/ListPagination.vue";
+import PageNation from '@/components/board/ListPagination.vue'
 
-const route = useRoute();
-const list = ref();
-const listPage = ref(route.params.page || 1);
-const pagingTotal = ref(0);
+const route = useRoute()
+const list = ref()
+const listPage = ref(route.params.id || 1)
+const pagingTotal = ref(0)
 
 const getPostList = async () => {
   const { data, headers } = await axios({
-    method: "get",
-    url: "/api/posts",
+    method: 'get',
+    url: '/api/posts',
     params: {
       per_page: 3,
-      page: listPage.value,
-    },
-  });
+      page: listPage.value
+    }
+  })
   // console.log(data);
   // console.log(headers["x-wp-totalpages"]);
-  list.value = data;
-  pagingTotal.value = headers["x-wp-totalpages"];
-};
+  list.value = data
+  pagingTotal.value = headers['x-wp-totalpages']
+}
 
 watch(
-  () => route.params.page,
+  () => route.params.id,
   (page) => {
-    listPage.value = page;
-    getPostList();
+    listPage.value = page || 1
+    getPostList()
   }
-);
+)
 
 onMounted(() => {
-  getPostList();
-});
+  getPostList()
+})
 </script>
 
 <template>
@@ -48,18 +48,15 @@ onMounted(() => {
           :to="{
             name: 'blogDetail',
             params: {
-              detailId: post.id,
-            },
+              detailId: post.id
+            }
           }"
           >{{ post.title.rendered }}</router-link
         >
         <!--        <comment-wrap :detail-id="post.id"></comment-wrap>-->
       </li>
     </ul>
-    <PageNation
-      :total="Number(pagingTotal)"
-      :page="Number(listPage)"
-    ></PageNation>
+    <PageNation :total="Number(pagingTotal)" :page="Number(listPage)"></PageNation>
   </div>
 </template>
 <style scoped>

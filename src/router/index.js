@@ -38,7 +38,7 @@ const router = createRouter({
       component: () => import('@/views/ApiListView.vue')
     },
     {
-      path: '/axios',
+      path: '/axios/:page?',
       name: 'axios',
       component: () => import('@/views/AxiosView.vue')
     },
@@ -50,7 +50,7 @@ const router = createRouter({
       children: [
         {
           // parameter page로 설정 뒤에 아무 숫자도 안붙었을 경우 처리를 위해 `?` 작성
-          path: 'list/:page?',
+          path: 'list/:id?',
           name: 'blogList',
           component: () => import('@/views/board/BlogList.vue')
         },

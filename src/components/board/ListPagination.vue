@@ -20,7 +20,7 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          page: 1,
+          id: 1,
         },
       }"
       v-if="props.page !== 1"
@@ -31,7 +31,7 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          page: props.page - 1,
+          id: props.page - 1,
         },
       }"
       v-if="props.page - 1 !== 0"
@@ -44,8 +44,11 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          page: item,
+          id: item,
         },
+      }"
+      :class="{
+        active: item === props.page,
       }"
       >{{ item }}</router-link
     >
@@ -54,7 +57,7 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          page: props.page + 1,
+          id: props.page + 1,
         },
       }"
       v-if="props.page + 1 <= props.total"
@@ -65,7 +68,7 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          page: props.total,
+          id: props.total,
         },
       }"
       v-if="props.page !== props.total"
@@ -86,5 +89,8 @@ a {
 }
 .router-link-exact-active {
   color: #ff0000;
+}
+.active {
+  color: red;
 }
 </style>
