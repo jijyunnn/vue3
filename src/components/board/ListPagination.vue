@@ -2,14 +2,14 @@
 const props = defineProps({
   total: {
     type: Number,
-    default: 0,
+    default: 0
   },
   page: {
     type: Number,
-    default: 1,
-  },
-});
-console.log(">>>>>>>>>>.", props.page);
+    default: 1
+  }
+})
+console.log('>>>>>>>>>>.', props.page)
 </script>
 
 <template>
@@ -20,8 +20,8 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          id: 1,
-        },
+          id: 1
+        }
       }"
       v-if="props.page !== 1"
       >first</router-link
@@ -31,8 +31,8 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          id: props.page - 1,
-        },
+          id: props.page - 1
+        }
       }"
       v-if="props.page - 1 !== 0"
       >prev</router-link
@@ -44,11 +44,11 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          id: item,
-        },
+          id: item
+        }
       }"
       :class="{
-        active: item === props.page,
+        active: item === props.page
       }"
       >{{ item }}</router-link
     >
@@ -57,8 +57,8 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          id: props.page + 1,
-        },
+          id: props.page + 1
+        }
       }"
       v-if="props.page + 1 <= props.total"
       >next</router-link
@@ -68,8 +68,8 @@ console.log(">>>>>>>>>>.", props.page);
       :to="{
         name: 'blogList',
         params: {
-          id: props.total,
-        },
+          id: props.total
+        }
       }"
       v-if="props.page !== props.total"
       >last</router-link

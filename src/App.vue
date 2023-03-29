@@ -23,6 +23,8 @@
         <router-link :to="{ name: 'apiTest' }">API LIST</router-link>
         <router-link :to="{ name: 'axios' }">axios</router-link>
         <router-link :to="{ name: 'board' }">게시판</router-link>
+        <router-link :to="{ name: 'store' }">Store</router-link>
+        <router-link :to="{ name: 'storeBlog' }">StoreBlog</router-link>
       </nav>
     </div>
   </header>
@@ -39,30 +41,30 @@ export default {
   data() {
     return {
       loaded: true,
-      message: "개인 repo",
-      list: [],
-    };
+      message: '개인 repo',
+      list: []
+    }
   },
   props: {},
   computed: {
     a() {
-      if (this.message === "hi") {
-        return "00000";
+      if (this.message === 'hi') {
+        return '00000'
       } else {
-        return "11111";
+        return '11111'
       }
-    },
+    }
   },
   watch: {
     message(value) {
-      console.log("---------", value);
-    },
+      console.log('---------', value)
+    }
   },
   beforeCreate() {},
   created() {},
   beforeMount() {},
   mounted() {
-    console.log(this.message);
+    console.log(this.message)
 
     // this.init();
   },
@@ -70,23 +72,23 @@ export default {
   beforeUnmount() {},
   methods: {
     async init() {
-      this.loaded = false;
-      const data = await fetch("https://reqres.in/api/users?per_page=5").then(
-        (response) => response.json()
-      );
+      this.loaded = false
+      const data = await fetch('https://reqres.in/api/users?per_page=5').then((response) =>
+        response.json()
+      )
       // .then(({ data }) => {
       //   this.list = data;
       //   this.loaded = true;
       // });
 
-      console.log(data);
+      console.log(data)
     },
     click() {
-      this.message = "hi";
-      this.init();
-    },
-  },
-};
+      this.message = 'hi'
+      this.init()
+    }
+  }
+}
 </script>
 <style scoped>
 header {
