@@ -39,7 +39,11 @@ watch(
   { deep: true }
 )
 
-const computeTest = computed(() => objTest.value)
+const computeTest = computed(() => {
+  //deep 처리가 안되서 콘솔 안찍힘
+  console.log('--------', objTest.value)
+  return objTest.value
+})
 
 const test = objTest.value
 

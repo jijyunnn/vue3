@@ -1,31 +1,39 @@
-<script setup>
-import { ref, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
-// import PageNation from '@/components/board/ListPagination.vue'
+<script>
+import ListPagination from '@/components/board/ListPagination.vue'
+import { mapActions, mapGetters } from 'pinia'
 import { useBlogListStore } from '@/stores/BlogList'
 
-const blogList = useBlogListStore()
+export default {
+  data() {
+    return {
+      // list: [],
+      listPage: 1,
+      blogList: {
+        pagingTotal: 0,
+        page: 0
+      }
+    }
+  },
+  components: {
+    ListPagination: ListPagination
+  },
+  computed: {
+    ...mapGetters(useBlogListStore, ['list', 'pagingTotal'])
+  },
+  async mounted() {
+    await this.getPostList()
+    console.log('list: ', this.list)
 
-const route = useRoute()
-const list = ref()
+    this.blogList.pagingTotal = this.pagingTotal
+    console.log('pagingTotal: ', this.pagingTotal)
 
-watch(
-  () => route.params.id,
-  async (page) => {
-    // listPage.value = page || 1
-    // getPostList()
-    await blogList.getPostList(page)
-    list.value = blogList.list
-    console.log('>>>>>>>>', page)
+    this.blogList.page = this.listPage
+    console.log('listPage: ', this.listPage)
+  },
+  methods: {
+    ...mapActions(useBlogListStore, ['getPostList'])
   }
-)
-
-onMounted(async () => {
-  // getPostList()
-  // store에 있는 getPostList 함수를 호출해 데이터와 통신하고 그걸 다시 list에 넣어주는데 통신하는 중에는 data가 없으니까 async/await
-  await blogList.getPostList()
-  list.value = blogList.list
-})
+}
 </script>
 
 <template>
@@ -46,21 +54,21 @@ onMounted(async () => {
         <!--        <comment-wrap :detail-id="post.id"></comment-wrap>-->
       </li>
     </ul>
-    <!--    <PageNation :total="Number(pagingTotal)" :page="Number(listPage)"></PageNation>-->
+    <ListPagination :total="Number(blogList.pagingTotal)" :page="Number(listPage)"></ListPagination>
     <hr />
-    <ul class="paging">
-      <li v-for="item in Number(blogList.pagingTotal)" :key="item">
-        <router-link
-          :to="{
-            name: 'storeBlog',
-            params: {
-              id: item
-            }
-          }"
-          >{{ item }}</router-link
-        >
-      </li>
-    </ul>
+    <!--    <ul class="paging">-->
+    <!--      <li v-for="item in Number(blogList.pagingTotal)" :key="item">-->
+    <!--        <router-link-->
+    <!--          :to="{-->
+    <!--            name: 'storeBlog',-->
+    <!--            params: {-->
+    <!--              id: item-->
+    <!--            }-->
+    <!--          }"-->
+    <!--          >{{ item }}</router-link-->
+    <!--        >-->
+    <!--      </li>-->
+    <!--    </ul>-->
   </div>
 </template>
 <style scoped>
