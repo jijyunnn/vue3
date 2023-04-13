@@ -1,5 +1,5 @@
 <script>
-import ListPagination from '@/components/board/ListPagination.vue'
+import ListPagination from '@/components/ListPagination.vue'
 import { mapActions, mapGetters } from 'pinia'
 import { useBlogListStore } from '@/stores/BlogList'
 

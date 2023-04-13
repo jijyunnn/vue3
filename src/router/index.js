@@ -50,7 +50,7 @@ const router = createRouter({
       children: [
         {
           // parameter page로 설정 뒤에 아무 숫자도 안붙었을 경우 처리를 위해 `?` 작성
-          path: 'list/:id?',
+          path: 'list/:page?',
           name: 'blogList',
           component: () => import('@/views/board/BlogList.vue')
         },
@@ -67,7 +67,7 @@ const router = createRouter({
       component: () => import('@/views/store/StoreBasic.vue')
     },
     {
-      path: '/storeBlog/:id?',
+      path: '/storeBlog',
       name: 'storeBlog',
       component: () => import('@/views/store/StoreBlog.vue')
     }

@@ -1,34 +1,34 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import { useRoute } from "vue-router";
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import { useRoute } from 'vue-router'
 // import comment from "@/views/board/BlogComment.vue";
-import commentWrap from "@/views/board/BlogCommentWrap.vue";
+import commentWrap from '@/views/board/BlogCommentWrap.vue'
 
-const route = useRoute();
+const route = useRoute()
 
 //이 값 props로 Comment로 전달할꺼임 / 형식 맞추기 위해 받아오는걸 Number로 변환
-const detailId = ref(Number(route.params.detailId));
-const detail = ref({});
+const detailId = ref(Number(route.params.detailId))
+const detail = ref({})
 //rendered error 처리를 위한 데이터 불러온지 체크하는 변수 선언
-const detailLoaded = ref(false);
+const detailLoaded = ref(false)
 
 // const comments = ref([]);
 
 const getPostDetail = async () => {
-  detailLoaded.value = false;
+  detailLoaded.value = false
   const { data } = await axios({
-    method: "get",
-    url: `/api/posts/${detailId.value}`,
-  });
+    method: 'get',
+    url: `/api/posts/${detailId.value}`
+  })
 
-  detail.value = data;
-  detailLoaded.value = true;
-};
+  detail.value = data
+  detailLoaded.value = true
+}
 
 onMounted(() => {
-  getPostDetail();
-});
+  getPostDetail()
+})
 </script>
 
 <template>

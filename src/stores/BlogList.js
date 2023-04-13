@@ -3,22 +3,31 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useBlogListStore = defineStore('blogList', () => {
-  const list = ref([])
   // const listPage = ref(1)
+  const list = ref([])
   const pagingTotal = ref(0)
-  const getPostList = async (pageId) => {
-    const { data, headers } = await axios({
-      method: 'get',
-      url: '/api/posts',
+  const loading = ref(false)
+
+  const getPostList = async (page) => {
+    loading.value = true
+    const { data, headers } = await axios.get('/api/posts', {
       params: {
-        per_page: 5,
-        // page: listPage.value,
-        page: pageId
+        per_page: 3,
+        page: page
       }
     })
+
     list.value = data
+
     pagingTotal.value = headers['x-wp-totalpages']
+    loading.value = false
+
+    // pagingTotal.value = headers['x-wp-totalpages']
   }
 
-  return { list, getPostList, pagingTotal }
+  const restList = () => {
+    list.value = []
+  }
+
+  return { list, getPostList, restList, pagingTotal, loading }
 })
