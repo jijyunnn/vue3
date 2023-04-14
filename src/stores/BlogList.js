@@ -13,7 +13,7 @@ export const useBlogListStore = defineStore('blogList', () => {
     const { data, headers } = await axios.get('/api/posts', {
       params: {
         per_page: 3,
-        page: page
+        page: page || 1
       }
     })
 

@@ -5,7 +5,7 @@ const props = defineProps({
     default: 0
   },
   page: {
-    type: Number,
+    type: [Number, String],
     default: 1
   }
 })
@@ -13,38 +13,38 @@ console.log('>>>>>>>>>>.', props.page)
 </script>
 
 <template>
-  <h3>current: {{ props.page }}</h3>
+  <!--  <h3>current: {{ props.page }}</h3>-->
   <div class="pagination">
-    <!--    &lt;!&ndash;  first btn  &ndash;&gt;-->
-    <!--    <router-link-->
-    <!--      :to="{-->
-    <!--        name: 'blogList',-->
-    <!--        params: {-->
-    <!--          id: 1-->
-    <!--        }-->
-    <!--      }"-->
-    <!--      v-if="props.page !== 1"-->
-    <!--      >first</router-link-->
-    <!--    >-->
-    <!--    &lt;!&ndash;  prev btn  &ndash;&gt;-->
-    <!--    <router-link-->
-    <!--      :to="{-->
-    <!--        name: 'blogList',-->
-    <!--        params: {-->
-    <!--          id: props.page - 1-->
-    <!--        }-->
-    <!--      }"-->
-    <!--      v-if="props.page - 1 !== 0"-->
-    <!--      >prev</router-link-->
-    <!--    >-->
-    <!--  pagination btn  -->
+    <!--  first btn  -->
+    <router-link
+      :to="{
+        name: 'blogList',
+        params: {
+          id: 1
+        }
+      }"
+      v-if="props.page !== 1"
+      >first</router-link
+    >
+    <!--  prev btn  -->
+    <router-link
+      :to="{
+        name: 'blogList',
+        params: {
+          id: props.page - 1
+        }
+      }"
+      v-if="props.page - 1 !== 0"
+      >prev</router-link
+    >
+    <!--    pagination btn-->
     <router-link
       v-for="item in props.total"
       :key="item"
       :to="{
-        name: 'blogList',
+        // name: 'blogList',
         params: {
-          page: item
+          id: item
         }
       }"
       :class="{
@@ -52,28 +52,28 @@ console.log('>>>>>>>>>>.', props.page)
       }"
       >{{ item }}</router-link
     >
-    <!--    &lt;!&ndash;  next btn  &ndash;&gt;-->
-    <!--    <router-link-->
-    <!--      :to="{-->
-    <!--        name: 'blogList',-->
-    <!--        params: {-->
-    <!--          id: props.page + 1-->
-    <!--        }-->
-    <!--      }"-->
-    <!--      v-if="props.page + 1 <= props.total"-->
-    <!--      >next</router-link-->
-    <!--    >-->
-    <!--    &lt;!&ndash;  last btn  &ndash;&gt;-->
-    <!--    <router-link-->
-    <!--      :to="{-->
-    <!--        name: 'blogList',-->
-    <!--        params: {-->
-    <!--          id: props.total-->
-    <!--        }-->
-    <!--      }"-->
-    <!--      v-if="props.page !== props.total"-->
-    <!--      >last</router-link-->
-    <!--    >-->
+    <!--  next btn  -->
+    <router-link
+      :to="{
+        name: 'blogList',
+        params: {
+          id: props.page + 1
+        }
+      }"
+      v-if="props.page + 1 <= props.total"
+      >next</router-link
+    >
+    <!--  last btn  -->
+    <router-link
+      :to="{
+        name: 'blogList',
+        params: {
+          id: props.total
+        }
+      }"
+      v-if="props.page !== props.total"
+      >last</router-link
+    >
   </div>
 </template>
 <style scoped>
@@ -90,7 +90,7 @@ a {
 .router-link-exact-active {
   color: #ff0000;
 }
-.active {
-  color: red;
-}
+/*.active {*/
+/*  color: red;*/
+/*}*/
 </style>
